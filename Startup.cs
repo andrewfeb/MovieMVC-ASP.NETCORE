@@ -56,9 +56,13 @@ namespace MovieMVC
 
             app.UseEndpoints(endpoints =>
             {
+                // for convention based routing and attribute routing
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                // for attribute routing only
+                //endpoints.MapControllers();
             });
         }
     }
