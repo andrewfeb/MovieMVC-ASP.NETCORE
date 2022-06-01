@@ -3,15 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MovieMVC.Services;
 
 namespace MovieMVC.Controllers
 {
-    public class HomeController : Controller
+    public class MovieController : Controller
     {
         public IActionResult Index()
         {
-            return Content("Welcome to ASP.NET Core");
+            return View();
+        }
+
+        public string GetMovie(int id)
+        {
+            return $"Get Movie with id: {id}";
         }
     }
 }

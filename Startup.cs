@@ -28,19 +28,7 @@ namespace MovieMVC
         public void ConfigureServices(IServiceCollection services)
         {
             // use MVC template
-            services.AddControllersWithViews();
-
-            // create single instance object throughout the application lifetime 
-            /*services.AddSingleton<IRandomService, RandomService>();
-            services.AddSingleton<IRandomWrapper, RandomWrapper>();*/
-
-            // instance object is created once per request 
-            /*services.AddScoped<IRandomService, RandomService>();
-            services.AddScoped<IRandomWrapper, RandomWrapper>();*/
-
-            // instance object is created every time this service injected
-            services.AddTransient<IRandomService, RandomService>();
-            services.AddTransient<IRandomWrapper, RandomWrapper>();
+            services.AddControllersWithViews();           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
