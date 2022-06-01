@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MovieMVC.Services;
 
 namespace MovieMVC
 {
@@ -28,6 +29,18 @@ namespace MovieMVC
         {
             // use MVC template
             services.AddControllersWithViews();
+
+            // create single instance object throughout the application lifetime 
+            /*services.AddSingleton<IRandomService, RandomService>();
+            services.AddSingleton<IRandomWrapper, RandomWrapper>();*/
+
+            // instance object is created once per request 
+            /*services.AddScoped<IRandomService, RandomService>();
+            services.AddScoped<IRandomWrapper, RandomWrapper>();*/
+
+            // instance object is created every time this service injected
+            services.AddTransient<IRandomService, RandomService>();
+            services.AddTransient<IRandomWrapper, RandomWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,10 +68,9 @@ namespace MovieMVC
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync(Configuration["ApplicationName"]);
-                });
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
