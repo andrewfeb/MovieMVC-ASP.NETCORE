@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MovieMVC.Models;
 
 namespace MovieMVC.Controllers
 {
@@ -10,7 +11,17 @@ namespace MovieMVC.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            Movie movie = new Movie()
+            {
+                MovieID = 1,
+                Title = "Avengers Endgame",
+                Year = "2019",
+                Genres = "Action, Sci-fi",
+                Cover = "Avengers_Endgame.jpg",
+                Description = "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
+            };
+
+            return View(movie);
         }
 
         public string GetMovie(int id)
