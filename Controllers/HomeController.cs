@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MovieMVC.Services;
 
 namespace MovieMVC.Controllers
 {
@@ -11,7 +10,7 @@ namespace MovieMVC.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Welcome to ASP.NET Core");
+            return View();
         }
     }
 }

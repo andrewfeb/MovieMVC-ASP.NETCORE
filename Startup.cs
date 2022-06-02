@@ -10,13 +10,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using MovieMVC.Services;
 
 namespace MovieMVC
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         public Startup (IConfiguration configuration)
         {
