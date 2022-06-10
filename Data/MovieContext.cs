@@ -20,14 +20,14 @@ namespace MovieMVC.Data
             // Custom configuration for category table
             modelBuilder.Entity<Category>()
                 .Property(c => c.CategoryName)
-                .HasColumnType("varchar(30")
+                .HasColumnType("varchar(30)")
                 .IsRequired();
 
             // Custom configuration for movie table
             modelBuilder.Entity<Movie>(
                 em =>
                 {
-                    em.Property(m => m.Title).HasColumnType("varchar(30").IsRequired();
+                    em.Property(m => m.Title).HasColumnType("varchar(30)").IsRequired();
                     em.Property(m => m.Cover).HasColumnType("varchar(125)");
                     em.Property(m => m.Year).HasColumnType("char(4)");
                     em.Property(m => m.Genres).HasColumnType("varchar(125)");

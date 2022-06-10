@@ -9,7 +9,7 @@ using MovieMVC.Data;
 namespace MovieMVC.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20220610042327_createMovieDB")]
+    [Migration("20220610053630_createMovieDB")]
     partial class createMovieDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace MovieMVC.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(30");
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("CategoryID");
 
@@ -57,7 +57,7 @@ namespace MovieMVC.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(30");
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("Year")
                         .HasColumnType("char(4)");
