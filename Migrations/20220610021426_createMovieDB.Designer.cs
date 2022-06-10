@@ -9,8 +9,8 @@ using MovieMVC.Data;
 namespace MovieMVC.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20220610015956_changeColumn")]
-    partial class changeColumn
+    [Migration("20220610021426_createMovieDB")]
+    partial class createMovieDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

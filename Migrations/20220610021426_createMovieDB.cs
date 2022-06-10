@@ -12,7 +12,7 @@ namespace MovieMVC.Migrations
                 {
                     CategoryID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "varchar(30)", nullable: true)
+                    CategoryName = table.Column<string>(type: "varchar(30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -25,7 +25,7 @@ namespace MovieMVC.Migrations
                 {
                     MovieID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "varchar(30)", nullable: true),
+                    Title = table.Column<string>(type: "varchar(30)", nullable: false),
                     Cover = table.Column<string>(type: "varchar(125)", nullable: true),
                     Year = table.Column<string>(type: "char(4)", nullable: true),
                     Genres = table.Column<string>(type: "varchar(125)", nullable: true),
