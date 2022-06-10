@@ -5,11 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using MovieMVC.Data;
 
 namespace MovieMVC
 {
@@ -27,7 +29,10 @@ namespace MovieMVC
         public void ConfigureServices(IServiceCollection services)
         {
             // use MVC template
-            services.AddControllersWithViews();           
+            services.AddControllersWithViews();
+            // Connect to sql express
+            services.AddDbContext<MovieContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Default")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
