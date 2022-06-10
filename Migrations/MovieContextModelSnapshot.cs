@@ -27,7 +27,7 @@ namespace MovieMVC.Migrations
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(30");
 
                     b.HasKey("CategoryID");
 
@@ -55,7 +55,7 @@ namespace MovieMVC.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("varchar(30");
 
                     b.Property<string>("Year")
                         .HasColumnType("char(4)");

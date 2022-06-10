@@ -11,22 +11,16 @@ namespace MovieMVC.Models
     {
         public int MovieID { get; set; }
 
-        [Required]
-        [Column(TypeName ="varchar(30)")]
         public string Title { get; set; }
 
-        [Column(TypeName = "varchar(125)")]
         public string Cover { get; set; }
 
-        [Column(TypeName = "char(4)")]
         public string Year { get; set; }
 
-        [Column(TypeName = "varchar(125)")]
         public string Genres { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
         public Category Category { get; set; }
     }
 }
