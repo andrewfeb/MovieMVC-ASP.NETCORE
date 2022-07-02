@@ -37,7 +37,8 @@ namespace MovieMVC.Data
             modelBuilder.Entity<Movie>()
                 .HasOne(m => m.Category)
                 .WithMany(c => c.Movies)
-                .IsRequired();
+                .HasForeignKey(m => m.CategoryID)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MovieMVC.Models
 
         public string Description { get; set; }
 
+        public int CategoryID { get; set; }
         public Category Category { get; set; }
     }
 }
