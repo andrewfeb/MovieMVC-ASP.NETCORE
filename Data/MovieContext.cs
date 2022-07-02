@@ -39,6 +39,26 @@ namespace MovieMVC.Data
                 .WithMany(c => c.Movies)
                 .HasForeignKey(m => m.CategoryID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            // One to one relationship with cascade delete
+            /*modelBuilder.Entity<Movie>()
+                .HasOne(m => m.Category)
+                .WithOne(c => c.Movies)
+                .HasForeignKey<Movie>(m => m.CategoryID)
+                .OnDelete(DeleteBehavior.Cascade);*/
+
+            // Many to Many relationship with cascade delete
+            /*modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Categories)
+                .WithMany(c => c.Movies);*/
+
+            // Create Composite Key jika your create CategoryMovie Model
+            /*modelBuilder.Entity<CategoryMovie>()
+                .HasKey(t => new { t.CategoryID, t.MovieId });*/
+
+            //Seedign data
+            modelBuilder.Entity<Category>()
+                .HasData(new { CategoryID = 1, CategoryName = "TV Drama" });
         }
     }
 }
