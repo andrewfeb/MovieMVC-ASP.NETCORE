@@ -18,7 +18,7 @@ namespace MovieMVC.Controllers
         public IActionResult Index()
         {
             List<Category> results = _category.GetAll().ToList();
-            return View();
+            return Content($"Category ID: {results[0].Id}, Category Name: {results[0].CategoryName}");
         }
     }
 }

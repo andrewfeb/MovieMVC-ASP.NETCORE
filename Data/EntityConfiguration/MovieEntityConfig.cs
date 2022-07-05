@@ -28,7 +28,8 @@ namespace MovieMVC.Data.EntityConfiguration
                 .HasForeignKey(m => m.CategoryID);
 
             // relationship many to many between movie and genre            
-            
+            builder.HasMany(m => m.Genres)
+                .WithMany(g => g.Movies);
         }
     }
 }
