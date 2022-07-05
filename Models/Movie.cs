@@ -9,7 +9,7 @@ namespace MovieMVC.Models
 {
     public class Movie
     {
-        public int MovieID { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -17,7 +17,7 @@ namespace MovieMVC.Models
 
         public string Year { get; set; }
 
-        public string Genres { get; set; }
+        public ICollection<Genre> Genres { get; set; }
 
         public string Description { get; set; }
 

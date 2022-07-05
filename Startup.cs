@@ -12,6 +12,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MovieMVC.Data;
+using MovieMVC.Repositories;
+using MovieMVC.Repositories.Interfaces;
 
 namespace MovieMVC
 {
@@ -33,6 +35,8 @@ namespace MovieMVC
             // Connect to sql express
             services.AddDbContext<MovieContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

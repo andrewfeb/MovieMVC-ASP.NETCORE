@@ -10,32 +10,34 @@ namespace MovieMVC.Repositories
 {
     public abstract class Repository<T> : IRepository<T> where T : class
     {
-        private readonly MovieContext context;
-
+        protected MovieContext context;
+        private DbSet<T> dbSet;
+        
         public Repository(MovieContext movieContext)
         {
             context = movieContext;
+            dbSet = context.Set<T>();
         }
 
         public void Delete(T entity)
         {
-            context.Set<T>().Remove(entity);
+            dbSet.Remove(entity);
             context.SaveChanges();
         }
 
         public IEnumerable<T> GetAll()
         {
-            return context.Set<T>().ToList();
+            return dbSet.ToList();
         }
 
         public T GetById(int id)
         {
-            return context.Set<T>().Find(id);
+            return dbSet.Find(id);
         }
 
         public void Insert(T entity)
         {
-            context.Set<T>().Add(entity);
+            dbSet.Add(entity);
             context.SaveChanges();
         }
 

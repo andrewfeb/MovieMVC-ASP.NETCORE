@@ -14,7 +14,12 @@
                 <h5 class="card-title">@Model.Title</h5>
                 <p class="card-text"><small class="text-muted">@Model.Year</small></p>
                 <p class="card-text">@Model.Description</p>
-                <span class="badge rounded-pill bg-secondary py-2">@Model.Genres</span>
+                <span class="badge rounded-pill bg-secondary py-2">
+                    @foreach (var item in Model.Genres)
+                    {
+                        @item.GenreName
+                    }
+                </span>
             </div>
         </div>
     </div>
