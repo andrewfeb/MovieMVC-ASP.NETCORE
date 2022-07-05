@@ -17,8 +17,37 @@ namespace MovieMVC.Controllers
         }
         public IActionResult Index()
         {
-            List<Category> results = _category.GetAll().ToList();
-            return Content($"Category ID: {results[0].Id}, Category Name: {results[0].CategoryName}");
+            List<Category> categories = _category.GetAll().ToList();
+            return View(categories);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category category)
+        {
+            _category.Insert(category);
+
+            return RedirectToAction("index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            Category category = _category.GetById(id);
+
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+            _category.Update(category);
+            return RedirectToAction("index");
         }
     }
 }
