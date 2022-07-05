@@ -122,7 +122,6 @@ E:\Labs asp.net core\MovieMVC\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Mi
 E:\Labs asp.net core\MovieMVC\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 E:\Labs asp.net core\MovieMVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 E:\Labs asp.net core\MovieMVC\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\Labs asp.net core\MovieMVC\obj\Debug\netcoreapp3.1\MovieMVC.csproj.AssemblyReference.cache
 E:\Labs asp.net core\MovieMVC\obj\Debug\netcoreapp3.1\MovieMVC.GeneratedMSBuildEditorConfig.editorconfig
 E:\Labs asp.net core\MovieMVC\obj\Debug\netcoreapp3.1\MovieMVC.AssemblyInfoInputs.cache
 E:\Labs asp.net core\MovieMVC\obj\Debug\netcoreapp3.1\MovieMVC.AssemblyInfo.cs
