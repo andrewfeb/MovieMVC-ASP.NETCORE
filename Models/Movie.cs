@@ -9,7 +9,7 @@ namespace MovieMVC.Models
 {
     public class Movie
     {
-        public int MovieID { get; set; }
+        public int id { get; set; }
 
         [Required]
         [Column(TypeName ="varchar(30)")]
@@ -21,12 +21,11 @@ namespace MovieMVC.Models
         [Column(TypeName = "char(4)")]
         public string Year { get; set; }
 
-        [Column(TypeName = "varchar(125)")]
-        public string Genres { get; set; }
+        public ICollection<Genre> Genres { get; set; }
 
         public string Description { get; set; }
 
-        [Required]
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
     }
 }

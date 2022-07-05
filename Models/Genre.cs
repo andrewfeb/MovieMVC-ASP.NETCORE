@@ -7,13 +7,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieMVC.Models
 {
-    public class Category
+    public class Genre
     {
-        public int id { get; set; }
-
-        [Required]
-        [Column(TypeName = "varchar(30)")]
-        public string CategoryName { get; set; }
+        public int Id { get; set; }
+        [Column(TypeName ="varchar(30)")]
+        public string GenreName { get; set; }
 
         public ICollection<Movie> Movies { get; set; }
     }
