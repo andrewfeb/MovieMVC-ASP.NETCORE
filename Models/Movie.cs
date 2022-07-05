@@ -9,7 +9,7 @@ namespace MovieMVC.Models
 {
     public class Movie
     {
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Column(TypeName ="varchar(30)")]

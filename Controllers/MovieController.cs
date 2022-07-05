@@ -13,10 +13,13 @@ namespace MovieMVC.Controllers
         {
             Movie movie = new Movie()
             {
-                MovieID = 1,
+                Id = 1,
                 Title = "Avengers Endgame",
                 Year = "2019",
-                Genres = "Action, Sci-fi",
+                Genres = new List<Genre>() {
+                    new Genre() { Id = 1, GenreName="Action"},
+                    new Genre() { Id = 2, GenreName="Sci-fi"}
+                },
                 Cover = "Avengers_Endgame.jpg",
                 Description = "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to reverse Thanos' actions and restore balance to the universe."
             };

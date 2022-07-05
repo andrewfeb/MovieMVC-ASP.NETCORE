@@ -18,9 +18,24 @@ namespace MovieMVC.Migrations
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.Property<int>("GenresId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoviesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GenresId", "MoviesId");
+
+                    b.HasIndex("MoviesId");
+
+                    b.ToTable("GenreMovie");
+                });
+
             modelBuilder.Entity("MovieMVC.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryID")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -29,19 +44,34 @@ namespace MovieMVC.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(30)");
 
-                    b.HasKey("CategoryID");
+                    b.HasKey("id");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("MovieMVC.Models.Movie", b =>
+            modelBuilder.Entity("MovieMVC.Models.Genre", b =>
                 {
-                    b.Property<int>("MovieID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryID")
+                    b.Property<string>("GenreName")
+                        .HasColumnType("varchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
+                });
+
+            modelBuilder.Entity("MovieMVC.Models.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Cover")
@@ -50,9 +80,6 @@ namespace MovieMVC.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Genres")
-                        .HasColumnType("varchar(125)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("varchar(30)");
@@ -60,18 +87,33 @@ namespace MovieMVC.Migrations
                     b.Property<string>("Year")
                         .HasColumnType("char(4)");
 
-                    b.HasKey("MovieID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CategoryID");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("GenreMovie", b =>
+                {
+                    b.HasOne("MovieMVC.Models.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieMVC.Models.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MovieMVC.Models.Movie", b =>
                 {
                     b.HasOne("MovieMVC.Models.Category", "Category")
                         .WithMany("Movies")
-                        .HasForeignKey("CategoryID")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

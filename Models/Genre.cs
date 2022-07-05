@@ -12,7 +12,6 @@ namespace MovieMVC.Models
         public int Id { get; set; }
         [Column(TypeName ="varchar(30)")]
         public string GenreName { get; set; }
-
         public ICollection<Movie> Movies { get; set; }
     }
 }
