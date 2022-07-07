@@ -48,6 +48,27 @@ namespace MovieMVC
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                //app.UseStatusCodePagesWithRedirects("/error/{0}");
+                //app.UseExceptionHandler("/Home/Error");
+                app.Use(async (context, next) =>
+                {
+                    await next.Invoke();
+                    string errorMessage = "";
+                    switch (context.Response.StatusCode)
+                    {
+                        case StatusCodes.Status404NotFound:
+                            errorMessage = "Error 404. Page Not Found";
+                            break;
+                        case StatusCodes.Status500InternalServerError:
+                            errorMessage = "Error 500. General Error";
+                            break;
+                    }
+
+                    await context.Response.WriteAsync(errorMessage);                    
+                });
+            }
 
             app.UseHttpsRedirection();
 

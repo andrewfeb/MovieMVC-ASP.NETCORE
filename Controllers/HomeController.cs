@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MovieMVC.Models;
+using System.Diagnostics;
 
 namespace MovieMVC.Controllers
 {
@@ -11,6 +13,10 @@ namespace MovieMVC.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
