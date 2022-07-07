@@ -10,6 +10,8 @@ namespace MovieMVC.Models
     public class Category
     {
         public int Id { get; set; }
+        [Required]
+        [StringLength(30)]
         public string CategoryName { get; set; }
         public ICollection<Movie> Movies { get; set; }
     }

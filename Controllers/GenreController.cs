@@ -33,9 +33,13 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Genre genre)
         {
-            _genre.Insert(genre);
+            if (ModelState.IsValid)
+            {
+                _genre.Insert(genre);
 
-            return RedirectToAction("index");
+                return RedirectToAction("index");
+            }
+            return View(genre);
         }
 
         public IActionResult Edit(int id)
@@ -49,9 +53,13 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Genre genre)
         {
-            _genre.Update(genre);
+            if (ModelState.IsValid)
+            {
+                _genre.Update(genre);
 
-            return RedirectToAction("index");
+                return RedirectToAction("index");
+            }
+            return View(genre);
         }
 
         public IActionResult Delete(Genre genre)

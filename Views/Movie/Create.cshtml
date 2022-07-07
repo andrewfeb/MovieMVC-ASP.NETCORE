@@ -1,6 +1,6 @@
-﻿@model MovieMVC.Models.MovieViewModel 
+﻿@model MovieMVC.Models.MovieViewModel
 @{
-    ViewBag.Title = "Add Movie";    
+    ViewBag.Title = "Add Movie";
 }
 
 <div class="card">
@@ -11,11 +11,13 @@
             <div class="mb-3">
                 <label asp-for="Title" class="form-label"></label>
                 <input type="text" class="form-control" asp-for="Title" maxlength="30" placeholder="Please entry a movie title" required />
+                <span class="invalid-feedback" asp-validation-for="Title"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Category" class="form-label"></label>
                 <select class="form-control" asp-for="Category" asp-items="@ViewBag.Categories">
                 </select>
+                <span class="invalid-feedback" asp-validation-for="Category"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Year" class="form-label"></label>
@@ -24,6 +26,7 @@
             <div class="mb-3">
                 <label asp-for="Cover" class="form-label"></label>
                 <input type="file" class="form-control" asp-for="Cover" />
+                <span class="invalid-feedback" asp-validation-for="Cover"></span>
             </div>
             <div class="mb-3">
                 <label asp-for="Genres" class="form-label"></label>
@@ -38,3 +41,6 @@
         </form>
     </div>
 </div>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScripts")
+}

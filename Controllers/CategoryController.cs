@@ -30,9 +30,13 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
-            _category.Insert(category);
+            if (ModelState.IsValid)
+            {
+                _category.Insert(category);
 
-            return RedirectToAction("index");
+                return RedirectToAction("index");
+            }
+            return View(category);
         }
 
         public IActionResult Edit(int id)
@@ -46,8 +50,12 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category category)
         {
-            _category.Update(category);
-            return RedirectToAction("index");
+            if (ModelState.IsValid)
+            {
+                _category.Update(category);
+                return RedirectToAction("index");
+            }
+            return View(category);
         }
 
         public IActionResult Delete(Category category)

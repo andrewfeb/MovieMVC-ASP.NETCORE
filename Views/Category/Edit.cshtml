@@ -11,7 +11,7 @@
             <div class="mb-3">
                 <label asp-for="CategoryName" class="form-label"></label>
                 <input type="text" class="form-control" asp-for="CategoryName" maxlength="30" />
-                <span class="text-danger" asp-validation-for="CategoryName"></span>
+                <span class="invalid-feedback" asp-validation-for="CategoryName"></span>
             </div>
             <div>
                 <a class="btn btn-secondary" asp-action="index">Back</a>
@@ -20,3 +20,6 @@
         </form>
     </div>
 </div>
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScripts")
+}

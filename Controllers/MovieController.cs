@@ -48,28 +48,32 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(MovieViewModel item)
         {
-            List<Genre> genres = new List<Genre>();
-
-            foreach(int genreId in item.Genres)
+            if (ModelState.IsValid)
             {
-                genres.Add(new Genre() { Id = genreId });
+                List<Genre> genres = new List<Genre>();
+
+                foreach (int genreId in item.Genres)
+                {
+                    genres.Add(new Genre() { Id = genreId });
+                }
+
+                Movie movie = new Movie()
+                {
+                    Title = item.Title,
+                    Year = item.Year,
+                    Description = item.Description,
+                    CategoryID = item.Category,
+                    Genres = genres,
+                    Cover = item.Cover.FileName
+                };
+
+                UploadFile(item.Cover);
+
+                _movie.Insert(movie);
+
+                return RedirectToAction("index");
             }
-
-            Movie movie = new Movie()
-            {
-                Title = item.Title,
-                Year = item.Year,
-                Description = item.Description,
-                CategoryID = item.Category,
-                Genres = genres,
-                Cover = item.Cover.FileName
-            };
-
-            UploadFile(item.Cover);
-
-            _movie.Insert(movie);
-
-            return RedirectToAction("index");
+            return View(item);
         }
 
         public IActionResult Edit(int id)
@@ -103,31 +107,35 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(MovieViewModel item)
         {
-            List<Genre> genres = new List<Genre>();
-
-            foreach (int genreId in item.Genres)
+            if (ModelState.IsValid)
             {
-                genres.Add(new Genre() { Id = genreId });
+                List<Genre> genres = new List<Genre>();
+
+                foreach (int genreId in item.Genres)
+                {
+                    genres.Add(new Genre() { Id = genreId });
+                }
+
+                Movie movie = new Movie()
+                {
+                    Id = item.MovieId,
+                    Title = item.Title,
+                    Year = item.Year,
+                    Description = item.Description,
+                    CategoryID = item.Category,
+                    Genres = genres,
+
+                };
+
+                movie.Cover = (item.Cover != null) ? item.Cover.FileName : item.CoverName;
+
+                UploadFile(item.Cover);
+
+                _movie.Update(movie);
+
+                return RedirectToAction("index");
             }
-
-            Movie movie = new Movie()
-            {
-                Id = item.MovieId,
-                Title = item.Title,
-                Year = item.Year,
-                Description = item.Description,
-                CategoryID = item.Category,
-                Genres = genres,
-                
-            };
-
-            movie.Cover = (item.Cover != null) ? item.Cover.FileName : item.CoverName;
-            
-            UploadFile(item.Cover);
-
-            _movie.Update(movie);
-
-            return RedirectToAction("index");
+            return View(item);
         }
 
         public IActionResult Delete(Movie movie)
