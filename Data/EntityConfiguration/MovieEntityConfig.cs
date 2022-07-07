@@ -29,7 +29,8 @@ namespace MovieMVC.Data.EntityConfiguration
 
             // relationship many to many between movie and genre            
             builder.HasMany(m => m.Genres)
-                .WithMany(g => g.Movies);
+                .WithMany(g => g.Movies);              
+
         }
     }
 }

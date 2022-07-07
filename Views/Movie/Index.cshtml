@@ -1,26 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Movie";
+﻿@model IEnumerable<MovieMVC.Models.Movie>
+@{
+    ViewBag.Title = "Movie";
 }
-
-@model MovieMVC.Models.Movie
-
-<div class="card mb-3">
-    <div class="row">
-        <div class="col-md-2">
-            <img src="files/cover/@Model.Cover" class="img-fluid rounded-start" asp-append-version="true"/>
-        </div>
-        <div class="col-md-10">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Title</h5>
-                <p class="card-text"><small class="text-muted">@Model.Year</small></p>
-                <p class="card-text">@Model.Description</p>
-                <span class="badge rounded-pill bg-secondary py-2">
-                    @foreach (var item in Model.Genres)
-                    {
-                        @item.GenreName
-                    }
-                </span>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-body">
+        <div class="card-title"><h3>Daftar Movie</h3></div>
+        <a class="btn btn-primary my-3" asp-action="create"><i class="bi bi-plus-circle pe-2"></i> Add Movie</a>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="15%">Cover</th>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th width="5%">Year</th>
+                    <th width="15%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 1;}
+                @foreach (var movie in Model)
+                {
+                <tr>
+                    <td>@i</td>
+                    <td><img src="~/files/cover/@movie.Cover" alt="cover" width="100" /></td>
+                    <td>@movie.Title</td>
+                    <td>@movie.Category.CategoryName</td>
+                    <td>@movie.Year</td>
+                    <td>
+                        <a class="btn btn-warning" asp-action="edit" asp-route-id="@movie.Id" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-danger" asp-action="delete" asp-route-id="@movie.Id" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Apakah item ini ingin dihapus?');"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_TooltipScripts")
+}

@@ -15,14 +15,14 @@ namespace MovieMVC.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Movie> Movies { get; set; }        
+        public DbSet<Movie> Movies { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new MovieEntityConfig());
             modelBuilder.ApplyConfiguration(new CategoryEntityConfig());
-            modelBuilder.ApplyConfiguration(new GenreEntityConfig());            
-            
+            modelBuilder.ApplyConfiguration(new GenreEntityConfig());
+
             //Seeding data
             modelBuilder.Entity<Category>()
                 .HasData(new { Id = 1, CategoryName = "TV Drama" });

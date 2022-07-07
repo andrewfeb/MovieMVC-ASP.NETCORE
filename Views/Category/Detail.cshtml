@@ -1,0 +1,32 @@
+﻿@model MovieMVC.Models.Category
+@{
+    ViewBag.Title = "Detail Category";
+}
+<div class="card">
+    <div class="card-header">Detail Category</div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-md-2 fw-bold">Category Name</div>
+            <div class="col-md-10">@Model.CategoryName</div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-2 fw-bold">List of Movie</div>
+            <div class="col-md-10">
+                @if (Model.Movies.Count() > 0)
+                {
+                <ul>
+                    @foreach (var movie in Model.Movies)
+                    {
+                        <li>@movie.Title</li>
+                    }
+                </ul>
+                }
+                else 
+                {
+                    <span>No Available</span>
+                }
+          </div>
+        </div>
+        <a class="btn btn-secondary" asp-action="index">Back</a>
+    </div>
+</div>

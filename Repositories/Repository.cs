@@ -11,7 +11,7 @@ namespace MovieMVC.Repositories
     public abstract class Repository<T> : IRepository<T> where T : class
     {
         protected MovieContext context;
-        private DbSet<T> dbSet;
+        protected DbSet<T> dbSet;
         
         public Repository(MovieContext movieContext)
         {
@@ -19,32 +19,38 @@ namespace MovieMVC.Repositories
             dbSet = context.Set<T>();
         }
 
-        public void Delete(T entity)
+        public virtual T Delete(T entity)
         {
             dbSet.Remove(entity);
             context.SaveChanges();
+
+            return entity;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbSet.ToList();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return dbSet.Find(id);
         }
 
-        public void Insert(T entity)
+        public virtual T Insert(T entity)
         {
             dbSet.Add(entity);
             context.SaveChanges();
+
+            return entity;
         }
 
-        public void Update(T entity)
+        public virtual T Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
             context.SaveChanges();
+
+            return entity;
         }
     }
 }

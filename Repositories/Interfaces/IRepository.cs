@@ -9,8 +9,8 @@ namespace MovieMVC.Repositories.Interfaces
     {
         T GetById(int id);
         IEnumerable<T> GetAll();
-        void Insert(T entity);
-        void Update(T entity);
-        void Delete(T entity);        
+        T Insert(T entity);
+        T Update(T entity);
+        T Delete(T entity);        
     }
 }

@@ -1,32 +1,39 @@
 ﻿@model IEnumerable<MovieMVC.Models.Category>
 @{
-    ViewData["Title"] = "Category Movie";
+    ViewBag.Title = "Category Movie";
 }
 <div class="card">
-    <div class="card-header">
-        List of Category Movie
-    </div>
     <div class="card-body">
-        <a class="btn btn-primary" asp-action="create">Add</a>
-        <table class="table table-striped">
+        <div class="card-title"><h3>Daftar Category Movie</h3></div>
+        <a class="btn btn-primary my-3" asp-action="create"><i class="bi bi-plus-circle pe-2"></i> Add Category</a>
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
+                    <th width="5%">No</th>
                     <th>Category Name</th>
-                    <th width="20%">Action</th>
+                    <th width="15%">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @{ int i = 1;}
+                @foreach (var category in Model)
                 {
-                    <tr>
-                        <td>@item.CategoryName</td>
-                        <td>
-                            <a class="btn btn-warning" asp-action="edit" asp-route-id="@item.Id">Edit</a>
-                            <a class="btn btn-danger" asp-action="delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@i</td>
+                    <td>@category.CategoryName</td>
+                    <td>
+                        <a class="btn btn-secondary" asp-action="detail" asp-route-id="@category.Id" data-bs-toggle="tooltip" title="Detail"><i class="bi bi-list"></i></a>
+                        <a class="btn btn-warning" asp-action="edit" asp-route-id="@category.Id" data-bs-toggle="tooltip" title="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-danger" asp-action="delete" asp-route-id="@category.Id" data-bs-toggle="tooltip" title="Delete" onclick="return confirm('Apakah item ini ingin dihapus?');"><i class="bi bi-trash"></i></a>
+                    </td>
+                </tr>
+                    i++;
                 }
             </tbody>
         </table>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_TooltipScripts")
+}

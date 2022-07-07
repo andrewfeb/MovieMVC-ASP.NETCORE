@@ -1,32 +1,31 @@
-﻿@using Microsoft.Extensions.Configuration;
-@inject IConfiguration config
+﻿<!DOCTYPE html>
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@config["ApplicationName"] - @ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@config["ApplicationName"] - @ViewBag.Title</title>
     <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
 </head>
 <body>
+    <!-- Menu -->
     <header>
         @await Html.PartialAsync("_Menu")
     </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
+    <!-- Content -->
+    <main>
         <div class="container">
-            &copy; 2022 - Movie App
+            @RenderBody()
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="border-top text-muted mt-4">
+        <div class="container">
+            &copy;2022 - Movie App
         </div>
     </footer>
-
     <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    @RenderSection("Scripts", required:false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

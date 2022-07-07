@@ -7,13 +7,16 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Home">Home</a>
+                    <a class="nav-link" asp-controller="Home" asp-action="index">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Category">Category Movie</a>
+                    <a class="nav-link" asp-controller="category" asp-action="index">Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" asp-controller="Movie">Movie</a>
+                    <a class="nav-link" asp-controller="genre" asp-action="index">Genre</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="movie" asp-action="index">Movie</a>
                 </li>
             </ul>
         </div>

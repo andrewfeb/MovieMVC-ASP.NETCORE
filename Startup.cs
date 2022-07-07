@@ -37,6 +37,8 @@ namespace MovieMVC
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IGenreRepository, GenreRepository>();
+            services.AddTransient<IMovieRepository, MovieRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

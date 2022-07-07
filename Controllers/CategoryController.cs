@@ -10,7 +10,7 @@ namespace MovieMVC.Controllers
 {
     public class CategoryController : Controller
     {
-        private ICategoryRepository _category;
+        private readonly ICategoryRepository _category;
         public CategoryController(ICategoryRepository category)
         {
             _category = category;
@@ -48,6 +48,19 @@ namespace MovieMVC.Controllers
         {
             _category.Update(category);
             return RedirectToAction("index");
+        }
+
+        public IActionResult Delete(Category category)
+        {
+            _category.Delete(category);
+            return RedirectToAction("index");
+        }
+
+        public IActionResult Detail(int id)
+        {
+            Category category = _category.GetDetail(id);
+
+            return View(category);
         }
     }
 }

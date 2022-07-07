@@ -1,0 +1,40 @@
+﻿@model MovieMVC.Models.MovieViewModel 
+@{
+    ViewBag.Title = "Add Movie";    
+}
+
+<div class="card">
+    <div class="card-header">Add Movie</div>
+    <div class="card-body">
+        <form method="post" asp-action="create" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="Title" maxlength="30" placeholder="Please entry a movie title" required />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label"></label>
+                <select class="form-control" asp-for="Category" asp-items="@ViewBag.Categories">
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Year" class="form-label"></label>
+                <input type="text" class="form-control" asp-for="Year" maxlength="4" placeholder="Please entry the release year of movie" required />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Cover" class="form-label"></label>
+                <input type="file" class="form-control" asp-for="Cover" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Genres" class="form-label"></label>
+                <select class="form-control" asp-for="Genres" asp-items="@ViewBag.Genres" multiple></select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea class="form-control" asp-for="Description" placeholder="Please entry a movie description"></textarea>
+            </div>
+            <a class="btn btn-secondary" asp-action="index">Back</a>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
