@@ -115,6 +115,9 @@ namespace MovieMVC
         {
             services.Configure<IdentityOptions>(options =>
             {
+                // User Settings
+                options.User.RequireUniqueEmail = true;
+
                 // Password Settings
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
