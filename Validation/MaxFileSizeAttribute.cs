@@ -13,8 +13,11 @@ namespace MovieMVC.Validation
         public MaxFileSizeAttribute(int maxFileSize)
         {
             _maxFileSize = maxFileSize;
+            if (ErrorMessage == "")
+            {
+                ErrorMessage = $"Maximum allowed file size is { _maxFileSize} MB.";
+            }
         }
-        public string GetErrorMessage() => $"Maximum allowed file size is { _maxFileSize} MB.";
         
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -23,7 +26,7 @@ namespace MovieMVC.Validation
             {
                 if (file.Length > (_maxFileSize * 1024 * 1024))
                 {
-                    return new ValidationResult(GetErrorMessage());
+                    return new ValidationResult(ErrorMessage);
                 }
             }
 
