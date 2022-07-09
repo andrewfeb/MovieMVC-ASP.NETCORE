@@ -22,13 +22,9 @@ namespace MovieMVC.Validation
         
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            IFormFile file = value as IFormFile;
-            if (file != null)
+            if ((value is IFormFile file) && (file.Length > (_maxFileSize * 1024 * 1024)))
             {
-                if (file.Length > (_maxFileSize * 1024 * 1024))
-                {
-                    return new ValidationResult(ErrorMessage);
-                }
+                return new ValidationResult(ErrorMessage);
             }
 
             return ValidationResult.Success;

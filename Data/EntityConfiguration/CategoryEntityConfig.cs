@@ -15,7 +15,9 @@ namespace MovieMVC.Data.EntityConfiguration
             builder.Property(c => c.CategoryName)
                 .HasColumnType("varchar(30)")
                 .IsRequired();
-                    
+
+            // Data Seeding
+            builder.HasData(new { Id = 1, CategoryName = "TV Drama" });
         }
     }
 }

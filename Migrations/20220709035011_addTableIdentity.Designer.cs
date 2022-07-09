@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieMVC.Data;
 
 namespace MovieMVC.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20220709035011_addTableIdentity")]
+    partial class addTableIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,22 +61,6 @@ namespace MovieMVC.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "bdc8dd8e-bfa9-411f-8c42-7fdf7a74eac6",
-                            ConcurrencyStamp = "73c5b75d-4e68-4c49-8f91-fa025cf9934b",
-                            Name = "Guest",
-                            NormalizedName = "GUEST"
-                        },
-                        new
-                        {
-                            Id = "c8cbadaf-6a52-4329-96a2-a057fa572cfc",
-                            ConcurrencyStamp = "addaeebc-23df-43c4-8244-b762d5c3c987",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -160,13 +146,6 @@ namespace MovieMVC.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "d242b6f5-916e-4538-b594-dad2987e208b",
-                            RoleId = "c8cbadaf-6a52-4329-96a2-a057fa572cfc"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -325,25 +304,6 @@ namespace MovieMVC.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "d242b6f5-916e-4538-b594-dad2987e208b",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "74e08ebf-4a00-4679-994b-390644d82f0b",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Name = "Administrator",
-                            NormalizedEmail = "admin@gmail.com",
-                            NormalizedUserName = "administrator",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGR6/nE5np9buT2wlPXotPEH1soFIfP2YvUWj8Q9cFZ3/SkVgnW8xZCn6PudUoLUqQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "a3b1c0f8-7e5e-4a2c-99a2-bcde28382ecf",
-                            TwoFactorEnabled = false,
-                            UserName = "administrator"
-                        });
                 });
 
             modelBuilder.Entity("GenreMovie", b =>

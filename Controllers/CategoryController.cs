@@ -65,7 +65,7 @@ namespace MovieMVC.Controllers
             }
             return View(category);
         }
-
+        
         public IActionResult Delete(Category category)
         {
             _category.Delete(category);
