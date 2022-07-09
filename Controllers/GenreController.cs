@@ -14,7 +14,7 @@ namespace MovieMVC.Controllers
         private readonly IGenreRepository _genre;
         private readonly ILogger _logger;
 
-        public GenreController(IGenreRepository genre, ILogger logger)
+        public GenreController(IGenreRepository genre, ILogger<GenreController> logger)
         {
             _genre = genre;
             _logger = logger;

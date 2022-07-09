@@ -22,7 +22,7 @@ namespace MovieMVC.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly ILogger _logger;
         
-        public MovieController(IMovieRepository movie, ICategoryRepository category, IGenreRepository genre, IWebHostEnvironment env, ILogger logger)
+        public MovieController(IMovieRepository movie, ICategoryRepository category, IGenreRepository genre, IWebHostEnvironment env, ILogger<MovieController> logger)
         {
             _movie = movie;
             _category = category;
