@@ -15,6 +15,8 @@ using MovieMVC.Data;
 using MovieMVC.Repositories;
 using MovieMVC.Repositories.Interfaces;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
+using MovieMVC.Models;
 
 namespace MovieMVC
 {
@@ -36,6 +38,11 @@ namespace MovieMVC
             // Connect to sql express
             services.AddDbContext<MovieContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<MovieContext>();
+
+            ConfigurationIdentity(services);
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<IGenreRepository, GenreRepository>();
@@ -89,6 +96,9 @@ namespace MovieMVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 // for convention based routing and attribute routing
@@ -98,6 +108,29 @@ namespace MovieMVC
 
                 // for attribute routing only
                 //endpoints.MapControllers();
+            });
+        }
+
+        private void ConfigurationIdentity(IServiceCollection services)
+        {
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password Settings
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
             });
         }
     }

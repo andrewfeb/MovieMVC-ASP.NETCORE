@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using MovieMVC.Repositories.Interfaces;
 using MovieMVC.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MovieMVC.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _category;
@@ -18,6 +20,8 @@ namespace MovieMVC.Controllers
             _category = category;
             _logger = logger;
         }
+
+        [AllowAnonymous]
         public IActionResult Index()
         {
             
