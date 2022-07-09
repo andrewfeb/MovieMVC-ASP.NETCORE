@@ -30,25 +30,25 @@ namespace MovieMVC.Controllers
             _env = env;
             _logger = logger;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Movie> movies = _movie.GetAll().ToList();
+            IEnumerable<Movie> movies = await _movie.GetAll();
             _logger.LogInformation("Get all movies");
 
-            return View(movies);
+            return View(movies.ToList());
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = new SelectList(_category.GetAll(), "Id", "CategoryName");
-            ViewBag.Genres = new MultiSelectList(_genre.GetAll(), "Id", "GenreName");
+            ViewBag.Categories = new SelectList(await _category.GetAll(), "Id", "CategoryName");
+            ViewBag.Genres = new MultiSelectList(await _genre.GetAll(), "Id", "GenreName");
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(MovieViewModel item)
+        public async Task<IActionResult> Create(MovieViewModel item)
         {
             if (ModelState.IsValid)
             {
@@ -69,9 +69,9 @@ namespace MovieMVC.Controllers
                     Cover = item.Cover.FileName
                 };
 
-                UploadFile(item.Cover);
+                await UploadFile(item.Cover);
 
-                _movie.Insert(movie);
+                await _movie.Insert(movie);
                 _logger.LogInformation("Insert new movie");
 
                 return RedirectToAction("index");
@@ -79,12 +79,12 @@ namespace MovieMVC.Controllers
             return View(item);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Categories = new SelectList(_category.GetAll(), "Id", "CategoryName");
-            ViewBag.Genres = new MultiSelectList(_genre.GetAll(), "Id", "GenreName");
+            ViewBag.Categories = new SelectList(await _category.GetAll(), "Id", "CategoryName");
+            ViewBag.Genres = new MultiSelectList(await _genre.GetAll(), "Id", "GenreName");
 
-            Movie movie = _movie.GetDetail(id);
+            Movie movie = await _movie.GetDetail(id);
             
             List<int> genres = new List<int>();
             foreach(Genre genre in movie.Genres)
@@ -108,7 +108,7 @@ namespace MovieMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(MovieViewModel item)
+        public async Task<IActionResult> Edit(MovieViewModel item)
         {
             if (ModelState.IsValid)
             {
@@ -132,9 +132,9 @@ namespace MovieMVC.Controllers
 
                 movie.Cover = (item.Cover != null) ? item.Cover.FileName : item.CoverName;
 
-                UploadFile(item.Cover);
+                await UploadFile(item.Cover);
 
-                _movie.Update(movie);
+                await _movie.Update(movie);
                 _logger.LogInformation($"Update movie with id {movie.Id}");
 
                 return RedirectToAction("index");
@@ -142,25 +142,29 @@ namespace MovieMVC.Controllers
             return View(item);
         }
 
-        public IActionResult Delete(Movie movie)
+        public async Task<IActionResult> Delete(Movie movie)
         {
-            _movie.Delete(movie);
+            await _movie.Delete(movie);
             _logger.LogInformation($"Delete movie with id {movie.Id}");
 
             return RedirectToAction("index");
         }
 
-        public void UploadFile(IFormFile file)
+        public async Task<bool> UploadFile(IFormFile file)
         {
-            if (file != null)
+            if (file == null)
             {
-                string uploads = Path.Combine(_env.ContentRootPath, @"Resources\Cover", file.FileName);
-                if (file.Length > 0)
-                {
-                    using FileStream fileStream = new FileStream(uploads, FileMode.Create);
-                    file.CopyTo(fileStream);
-                }
+                return false;
             }
+            
+            string uploads = Path.Combine(_env.ContentRootPath, @"Resources\Cover", file.FileName);
+            if (file.Length > 0)
+            {
+                using FileStream fileStream = new FileStream(uploads, FileMode.Create);
+                await file .CopyToAsync(fileStream);
+            }
+
+            return true;
         }
     }
 }

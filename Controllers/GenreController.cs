@@ -20,12 +20,12 @@ namespace MovieMVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Genre> genres = _genre.GetAll().ToList();
+            IEnumerable<Genre> genres =  await _genre.GetAll();
             _logger.LogInformation("Get all genres");
 
-            return View(genres);
+            return View(genres.ToList());
         }
 
         public IActionResult Create()
@@ -35,11 +35,11 @@ namespace MovieMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Genre genre)
+        public async Task<IActionResult> Create(Genre genre)
         {
             if (ModelState.IsValid)
             {
-                _genre.Insert(genre);
+                await _genre.Insert(genre);
                 _logger.LogInformation("Insert new genre");
 
                 return RedirectToAction("index");
@@ -47,20 +47,20 @@ namespace MovieMVC.Controllers
             return View(genre);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            Genre genre = _genre.GetById(id);
+            Genre genre = await _genre.GetById(id);
 
             return View(genre);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Genre genre)
+        public async Task<IActionResult> Edit(Genre genre)
         {
             if (ModelState.IsValid)
             {
-                _genre.Update(genre);
+                await _genre.Update(genre);
                 _logger.LogInformation($"Update category with id {genre.Id}");
 
                 return RedirectToAction("index");
@@ -68,9 +68,9 @@ namespace MovieMVC.Controllers
             return View(genre);
         }
 
-        public IActionResult Delete(Genre genre)
+        public async Task<IActionResult> Delete(Genre genre)
         {
-            _genre.Delete(genre);
+            await _genre.Delete(genre);
             _logger.LogInformation($"Delete category with id {genre.Id}");
 
             return RedirectToAction("index");

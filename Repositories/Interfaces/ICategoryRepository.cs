@@ -8,6 +8,6 @@ namespace MovieMVC.Repositories.Interfaces
 {
     public interface ICategoryRepository:IRepository<Category>
     {
-        Category GetDetail(int id);
+        Task<Category> GetDetail(int id);
     }
 }

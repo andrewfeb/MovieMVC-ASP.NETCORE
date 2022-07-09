@@ -22,12 +22,12 @@ namespace MovieMVC.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             
-            List<Category> categories = _category.GetAll().ToList();
+            IEnumerable<Category> categories = await _category.GetAll();
             _logger.LogInformation("Show list categories");
-            return View(categories);
+            return View(categories.ToList());
         }
 
         public IActionResult Create()
@@ -37,11 +37,11 @@ namespace MovieMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Category category)
+        public async Task<IActionResult> Create(Category category)
         {
             if (ModelState.IsValid)
             {
-                _category.Insert(category);
+                await _category.Insert(category);
                 _logger.LogInformation("Insert new category");
 
                 return RedirectToAction("index");
@@ -49,20 +49,20 @@ namespace MovieMVC.Controllers
             return View(category);
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            Category category = _category.GetById(id);
+            Category category = await _category.GetById(id);
 
             return View(category);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Category category)
+        public async Task<IActionResult> Edit(Category category)
         {
             if (ModelState.IsValid)
             {
-                _category.Update(category);
+                await _category.Update(category);
                 _logger.LogInformation($"Update category with id {category.Id}");
 
                 return RedirectToAction("index");
@@ -70,17 +70,17 @@ namespace MovieMVC.Controllers
             return View(category);
         }
         
-        public IActionResult Delete(Category category)
+        public async Task<IActionResult> Delete(Category category)
         {
-            _category.Delete(category);
+            await _category.Delete(category);
             _logger.LogInformation($"Delete category with id {category.Id}");
 
             return RedirectToAction("index");
         }
 
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
-            Category category = _category.GetDetail(id);
+            Category category = await _category.GetDetail(id);
             _logger.LogInformation($"Get detail category with id {id}");
 
             return View(category);

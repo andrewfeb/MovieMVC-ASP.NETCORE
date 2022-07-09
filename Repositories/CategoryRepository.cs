@@ -15,10 +15,12 @@ namespace MovieMVC.Repositories
         {
         }
 
-        public Category GetDetail(int id)
+        public async Task<Category> GetDetail(int id)
         {
             //eager loading
-            return dbSet.Where(c => c.Id == id).Include(c => c.Movies).FirstOrDefault();
+            return await dbSet.Where(c => c.Id == id)
+                .Include(c => c.Movies)
+                .FirstOrDefaultAsync();
         }
 
     }

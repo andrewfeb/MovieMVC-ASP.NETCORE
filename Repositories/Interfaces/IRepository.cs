@@ -7,10 +7,10 @@ namespace MovieMVC.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        T Insert(T entity);
-        T Update(T entity);
-        T Delete(T entity);        
+        Task<T> GetById(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> Insert(T entity);
+        Task<T> Update(T entity);
+        Task<T> Delete(T entity);        
     }
 }

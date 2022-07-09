@@ -8,6 +8,6 @@ namespace MovieMVC.Repositories.Interfaces
 {
     public interface IMovieRepository: IRepository<Movie>
     {
-        Movie GetDetail(int id);
+        Task<Movie> GetDetail(int id);
     }
 }

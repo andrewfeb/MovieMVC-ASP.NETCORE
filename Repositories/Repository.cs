@@ -19,36 +19,36 @@ namespace MovieMVC.Repositories
             dbSet = context.Set<T>();
         }
 
-        public virtual T Delete(T entity)
+        public virtual async Task<T> Delete(T entity)
         {
             dbSet.Remove(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return entity;
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual async Task<IEnumerable<T>> GetAll()
         {
-            return dbSet.ToList();
+            return await dbSet.ToListAsync();
         }
 
-        public virtual T GetById(int id)
+        public virtual async Task<T> GetById(int id)
         {
-            return dbSet.Find(id);
+            return await dbSet.FindAsync(id);
         }
 
-        public virtual T Insert(T entity)
+        public virtual async Task<T> Insert(T entity)
         {
             dbSet.Add(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return entity;
         }
 
-        public virtual T Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
             context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return entity;
         }

@@ -14,42 +14,42 @@ namespace MovieMVC.Repositories
         public MovieRepository(MovieContext context):base(context)
         { }
 
-        public override IEnumerable<Movie> GetAll()
+        public override async Task<IEnumerable<Movie>> GetAll()
         {
-            return dbSet.Include(m => m.Category).ToList();
+            return await dbSet.Include(m => m.Category).ToListAsync();
         }
 
-        public Movie GetDetail(int id)
+        public async Task<Movie> GetDetail(int id)
         {
-            return dbSet.Where(m => m.Id == id)
+            return await dbSet.Where(m => m.Id == id)
                         .Include(m => m.Category)
                         .Include(m => m.Genres)
-                        .FirstOrDefault();
+                        .FirstOrDefaultAsync();
         }
 
-        public override Movie Insert(Movie entity)
+        public override async Task<Movie> Insert(Movie entity)
         {
             context.Genres.AttachRange(entity.Genres);
             dbSet.Add(entity);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return entity;
         }
 
-        public override Movie Update(Movie entity)
+        public override async Task<Movie> Update(Movie entity)
         {
-            using (var transaction = context.Database.BeginTransaction())
+            using (var transaction = await context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    context.Database.ExecuteSqlRaw("Delete FROM GenreMovie WHERE MoviesId= {0}", entity.Id);
+                    await context.Database.ExecuteSqlRawAsync("Delete FROM GenreMovie WHERE MoviesId= {0}", entity.Id);
                     context.Genres.AttachRange(entity.Genres);
                     context.Entry(entity).State = EntityState.Modified;
-                    context.SaveChanges();
-                    transaction.Commit();
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
                 }catch(Exception ex)
                 {
-                    transaction.Rollback();
+                    await transaction.RollbackAsync();
                     throw new Exception(ex.Message);
                 }
             }
