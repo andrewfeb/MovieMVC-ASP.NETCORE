@@ -5,21 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using MovieMVC.Repositories.Interfaces;
 using MovieMVC.Models;
+using Microsoft.Extensions.Logging;
 
 namespace MovieMVC.Controllers
 {
     public class GenreController : Controller
     {
         private readonly IGenreRepository _genre;
+        private readonly ILogger _logger;
 
-        public GenreController(IGenreRepository genre)
+        public GenreController(IGenreRepository genre, ILogger logger)
         {
             _genre = genre;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
             List<Genre> genres = _genre.GetAll().ToList();
+            _logger.LogInformation("Get all genres");
 
             return View(genres);
         }
@@ -36,6 +40,7 @@ namespace MovieMVC.Controllers
             if (ModelState.IsValid)
             {
                 _genre.Insert(genre);
+                _logger.LogInformation("Insert new genre");
 
                 return RedirectToAction("index");
             }
@@ -56,6 +61,7 @@ namespace MovieMVC.Controllers
             if (ModelState.IsValid)
             {
                 _genre.Update(genre);
+                _logger.LogInformation($"Update category with id {genre.Id}");
 
                 return RedirectToAction("index");
             }
@@ -65,6 +71,7 @@ namespace MovieMVC.Controllers
         public IActionResult Delete(Genre genre)
         {
             _genre.Delete(genre);
+            _logger.LogInformation($"Delete category with id {genre.Id}");
 
             return RedirectToAction("index");
         }

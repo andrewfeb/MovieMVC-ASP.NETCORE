@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using MovieMVC.Data;
+using Microsoft.Extensions.Logging;
 
 namespace MovieMVC.Controllers
 {
@@ -19,20 +20,21 @@ namespace MovieMVC.Controllers
         private readonly ICategoryRepository _category;
         private readonly IGenreRepository _genre;
         private readonly IWebHostEnvironment _env;
-        private readonly MovieContext _context;
+        private readonly ILogger _logger;
         
-        public MovieController(IMovieRepository movie, ICategoryRepository category, IGenreRepository genre, IWebHostEnvironment env, MovieContext context)
+        public MovieController(IMovieRepository movie, ICategoryRepository category, IGenreRepository genre, IWebHostEnvironment env, ILogger logger)
         {
             _movie = movie;
             _category = category;
             _genre = genre;
             _env = env;
-            _context = context;
+            _logger = logger;
         }
         public IActionResult Index()
         {
             List<Movie> movies = _movie.GetAll().ToList();
-            
+            _logger.LogInformation("Get all movies");
+
             return View(movies);
         }
 
@@ -70,6 +72,7 @@ namespace MovieMVC.Controllers
                 UploadFile(item.Cover);
 
                 _movie.Insert(movie);
+                _logger.LogInformation("Insert new movie");
 
                 return RedirectToAction("index");
             }
@@ -132,6 +135,7 @@ namespace MovieMVC.Controllers
                 UploadFile(item.Cover);
 
                 _movie.Update(movie);
+                _logger.LogInformation($"Update movie with id {movie.Id}");
 
                 return RedirectToAction("index");
             }
@@ -141,6 +145,7 @@ namespace MovieMVC.Controllers
         public IActionResult Delete(Movie movie)
         {
             _movie.Delete(movie);
+            _logger.LogInformation($"Delete movie with id {movie.Id}");
 
             return RedirectToAction("index");
         }

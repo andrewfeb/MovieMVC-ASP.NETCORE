@@ -20,9 +20,9 @@ namespace MovieMVC.Controllers
         }
         public IActionResult Index()
         {
+            
             List<Category> categories = _category.GetAll().ToList();
-            _logger.LogInformation("Log message in the Index() method");
-
+            _logger.LogInformation("Show list categories");
             return View(categories);
         }
 
@@ -38,6 +38,7 @@ namespace MovieMVC.Controllers
             if (ModelState.IsValid)
             {
                 _category.Insert(category);
+                _logger.LogInformation("Insert new category");
 
                 return RedirectToAction("index");
             }
@@ -58,6 +59,8 @@ namespace MovieMVC.Controllers
             if (ModelState.IsValid)
             {
                 _category.Update(category);
+                _logger.LogInformation($"Update category with id {category.Id}");
+
                 return RedirectToAction("index");
             }
             return View(category);
@@ -66,12 +69,15 @@ namespace MovieMVC.Controllers
         public IActionResult Delete(Category category)
         {
             _category.Delete(category);
+            _logger.LogInformation($"Delete category with id {category.Id}");
+
             return RedirectToAction("index");
         }
 
         public IActionResult Detail(int id)
         {
             Category category = _category.GetDetail(id);
+            _logger.LogInformation($"Get detail category with id {id}");
 
             return View(category);
         }

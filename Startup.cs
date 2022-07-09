@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using MovieMVC.Data;
 using MovieMVC.Repositories;
 using MovieMVC.Repositories.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace MovieMVC
 {
@@ -42,8 +43,11 @@ namespace MovieMVC
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory logger)
         {
+            logger.AddFile("Logs/log.txt");
+            
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
