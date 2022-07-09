@@ -5,19 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using MovieMVC.Repositories.Interfaces;
 using MovieMVC.Models;
+using Microsoft.Extensions.Logging;
 
 namespace MovieMVC.Controllers
 {
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _category;
-        public CategoryController(ICategoryRepository category)
+        private readonly ILogger _logger;
+        public CategoryController(ICategoryRepository category, ILogger<CategoryController> logger)
         {
             _category = category;
+            _logger = logger;
         }
         public IActionResult Index()
         {
             List<Category> categories = _category.GetAll().ToList();
+            _logger.LogInformation("Log message in the Index() method");
+
             return View(categories);
         }
 

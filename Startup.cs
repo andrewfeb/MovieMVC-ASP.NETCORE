@@ -51,8 +51,8 @@ namespace MovieMVC
             else
             {
                 //app.UseStatusCodePagesWithRedirects("/error/{0}");
-                //app.UseExceptionHandler("/Home/Error");
-                app.Use(async (context, next) =>
+                app.UseExceptionHandler("/Home/Error");
+                /*app.Use(async (context, next) =>
                 {
                     await next.Invoke();
                     string errorMessage = "";
@@ -67,7 +67,7 @@ namespace MovieMVC
                     }
 
                     await context.Response.WriteAsync(errorMessage);                    
-                });
+                });*/
             }
 
             app.UseHttpsRedirection();
