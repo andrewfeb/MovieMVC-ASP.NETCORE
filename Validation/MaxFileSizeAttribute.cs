@@ -14,10 +14,7 @@ namespace MovieMVC.Validation
         {
             _maxFileSize = maxFileSize;
 
-            if (ErrorMessage == "")
-            {
-                ErrorMessage = $"Maximum allowed file size is { _maxFileSize} MB.";
-            }
+            ErrorMessage = $"Maximum allowed file size is { _maxFileSize} MB.";
         }
         
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)

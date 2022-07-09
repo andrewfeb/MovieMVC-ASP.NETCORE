@@ -10,7 +10,7 @@
             @Html.AntiForgeryToken()
             <div class="mb-3">
                 <label asp-for="Title" class="form-label"></label>
-                <input type="text" class="form-control" asp-for="Title" maxlength="30" placeholder="Please entry a movie title" required />
+                <input type="text" class="form-control" asp-for="Title" maxlength="30" placeholder="Please entry a movie title"/>
                 <span class="invalid-feedback" asp-validation-for="Title"></span>
             </div>
             <div class="mb-3">
@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Year" class="form-label"></label>
-                <input type="text" class="form-control" asp-for="Year" maxlength="4" placeholder="Please entry the release year of movie" required />
+                <input type="text" class="form-control" asp-for="Year" maxlength="4" placeholder="Please entry the release year of movie" />
             </div>
             <div class="mb-3">
                 <label asp-for="Cover" class="form-label"></label>

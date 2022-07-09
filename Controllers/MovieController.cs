@@ -40,8 +40,7 @@ namespace MovieMVC.Controllers
 
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = new SelectList(await _category.GetAll(), "Id", "CategoryName");
-            ViewBag.Genres = new MultiSelectList(await _genre.GetAll(), "Id", "GenreName");
+            await GetAllCategoryGenre();
 
             return View();
         }
@@ -50,6 +49,8 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(MovieViewModel item)
         {
+            await GetAllCategoryGenre();
+
             if (ModelState.IsValid)
             {
                 List<Genre> genres = new List<Genre>();
@@ -81,8 +82,7 @@ namespace MovieMVC.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            ViewBag.Categories = new SelectList(await _category.GetAll(), "Id", "CategoryName");
-            ViewBag.Genres = new MultiSelectList(await _genre.GetAll(), "Id", "GenreName");
+            await GetAllCategoryGenre();
 
             Movie movie = await _movie.GetDetail(id);
             
@@ -110,6 +110,8 @@ namespace MovieMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(MovieViewModel item)
         {
+            await GetAllCategoryGenre();
+
             if (ModelState.IsValid)
             {
                 List<Genre> genres = new List<Genre>();
@@ -161,8 +163,16 @@ namespace MovieMVC.Controllers
             if (file.Length > 0)
             {
                 using FileStream fileStream = new FileStream(uploads, FileMode.Create);
-                await file .CopyToAsync(fileStream);
+                await file.CopyToAsync(fileStream);
             }
+
+            return true;
+        }
+
+        private async Task<bool> GetAllCategoryGenre()
+        {
+            ViewBag.Categories = new SelectList(await _category.GetAll(), "Id", "CategoryName");
+            ViewBag.Genres = new MultiSelectList(await _genre.GetAll(), "Id", "GenreName");
 
             return true;
         }
